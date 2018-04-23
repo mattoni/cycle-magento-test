@@ -1,0 +1,74 @@
+version: "1.0"
+description: "Magento Stack for Cycle"
+containers:
+  db:
+    name: "MariaDB"
+
+    image:
+      name: "MariaDB"
+      preload: false
+      source:
+        docker_hub:
+          target: "bitnami/mariadb:latest"
+
+    runtime:
+      environment_vars:
+        ALLOW_EMPTY_PASSWORD: yes
+        MARIADB_USER: bn_magento
+        MARIADB_PASSWORD: test
+        MARIADB_DATABASE: bitnami_magento
+
+    
+    network:
+      hostname: "mariadb"
+      ports:
+        - "3306"
+      public: "disable"
+
+    options:
+      monitor:
+        auto_restart: true
+        max_restarts: 3
+        notify:
+          emails:
+            - amattoni@cycle.io
+            
+    volumes:
+      -
+        destination: /bitnami
+        local:
+          max_size: 20G
+        readonly: false
+        remote_access:
+          enable: false
+  
+  magento:
+    image: 
+      name: "Magento"
+      preload: false
+      source:
+        docker_hub:
+          target: "bitnami/magento:latest"
+
+    runtime:
+      environment_vars:
+        MARIADB_HOST: mariadb
+        MARIADB_PORT_NUMBER: 3306
+        MAGENTO_DATABASE_USER: bn_magento
+        MAGENTO_DATABASE_PASSWORD: test
+        MAGENTO_DATABASE_NAME: bitnami_magento
+    
+    network:
+      hostname: magento
+      ports:
+        - "80:80"
+        - "443:443"
+    
+    volumes:
+       -
+        destination: /bitnami
+        local:
+          max_size: 2G
+          readonly: false
+          remote_access:
+            enable: true
