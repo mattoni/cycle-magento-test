@@ -17,9 +17,9 @@ containers:
         MARIADB_DATABASE: bitnami_magento
     network:
       hostname: "mariadb"
+      public: "disable"
       ports:
         - "3306"
-      public: "disable"
     options:
       monitor:
         auto_restart: true
