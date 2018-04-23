@@ -60,6 +60,7 @@ containers:
     
     network:
       hostname: magento
+      public: "enable"
       ports:
         - "80:80"
         - "443:443"
