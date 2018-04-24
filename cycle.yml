@@ -47,12 +47,12 @@ containers:
           target: "bitnami/magento:latest"
     volumes:
       -
-      destination: /bitnami
-      local:
-        max_size: 2G
-        readonly: false
-        remote_access:
-          enable: true
+        destination: /bitnami
+        local:
+          max_size: 2G
+          readonly: false
+          remote_access:
+            enable: true
     config:
       runtime:
         environment_vars:
