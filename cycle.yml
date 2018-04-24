@@ -65,7 +65,7 @@ containers:
           MAGENTO_DATABASE_USER: bn_magento
           MAGENTO_DATABASE_PASSWORD: test
           MAGENTO_DATABASE_NAME: bitnami_magento
-           MAGENTO_HOST: "{{ instance.ips.public }}"
+          MAGENTO_HOST: {{ instance.ips.public }}
       network:
         hostname: magento
         public: "enable"
